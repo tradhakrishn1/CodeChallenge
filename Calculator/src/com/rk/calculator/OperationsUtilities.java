@@ -17,26 +17,39 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class OperationsUtilities {
-	final static String REGEX = "([0-9]*[+-/%*]?[0-9]*)*";
-	final static String REGEX_STRING_SPLIT = "[+-/%*]";
+	static String regex = "([0-9]*[+-/%*]?[0-9]*)*";
+	static String regexStringSplit = "[+-/%*]";
+
+	public static String getRegex() {
+		return regex;
+	}
+
+	public static void setRegex(String regex) {
+		OperationsUtilities.regex = regex;
+	}
+
+	public static String getRegexStringSplit() {
+		return regexStringSplit;
+	}
+
+	public static void setRegexStringSplit(String regexStringSplit) {
+		OperationsUtilities.regexStringSplit = regexStringSplit;
+	}
+
 	static List<String> allowedOperators = Arrays.asList("+", "-", "*", "/", "%");
 	private static List<Double> operands;
 	private static List<Character> operators;
 
 	static void loadOperandsandOperators(String expressionToBeProcessed) {
 		// Function for storing the operands and operators from the input
-		operands = Stream.of(expressionToBeProcessed.split(REGEX_STRING_SPLIT)).filter(x -> !x.isEmpty())
+		operands = Stream.of(expressionToBeProcessed.split(getRegexStringSplit())).filter(x -> !x.isEmpty())
 				.map(x -> Double.parseDouble(x)).collect(Collectors.toList());
-		operators = Stream.of(expressionToBeProcessed.split("")).filter(x -> allowedOperators.contains(x))
+		operators = Stream.of(expressionToBeProcessed.split("")).filter(x -> getAllowedOperators().contains(x))
 				.map(x -> x.charAt(0)).collect(Collectors.toList());
 	}
 
 	public static List<String> getAllowedOperators() {
 		return allowedOperators;
-	}
-
-	public static void setAllowedOperators(List<String> allowedOperators) {
-		OperationsUtilities.allowedOperators = allowedOperators;
 	}
 
 	public static ArrayList<Character> loadOperators() {
@@ -50,7 +63,7 @@ public class OperationsUtilities {
 	public static boolean validate(String inputExpression) {
 		// Function to validate the input string
 		boolean validInput = false;
-		Pattern pattern = Pattern.compile(REGEX);
+		Pattern pattern = Pattern.compile(getRegex());
 		Matcher matcher = pattern.matcher(inputExpression);
 		validInput = matcher.matches();
 		if (validInput) {
