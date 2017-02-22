@@ -60,27 +60,27 @@ public class CalculatorImpl implements Calculator {
 		switch (op) {
 		case ADDITION:
 			operands.remove(index + 1);
-			operands.set(index, new OperationContext(new AdditionOperation()).executeOperation(a, b));
+			operands.set(index, new AdditionOperation().operate(a, b));
 			operators.remove(index);
 			break;
 		case SUBTRACTION:
 			operands.remove(index + 1);
-			operands.set(index, new OperationContext(new SubtractionOperation()).executeOperation(a, b));
+			operands.set(index, new SubtractionOperation().operate(a, b));
 			operators.remove(index);
 			break;
 		case MULTIPLICATION:
 			operands.remove(index + 1);
-			operands.set(index, new OperationContext(new MultiplicationOperation()).executeOperation(a, b));
+			operands.set(index, new MultiplicationOperation().operate(a, b));
 			operators.remove(index);
 			break;
 		case DIVISION:
 			operands.remove(index + 1);
-			operands.set(index, new OperationContext(new DivisionOperation()).executeOperation(a, b));
+			operands.set(index, new DivisionOperation().operate(a, b));
 			operators.remove(index);
 			break;
 		case MODULUS:
 			operands.remove(index + 1);
-			operands.set(index, new OperationContext(new ModulusOperation()).executeOperation(a, b));
+			operands.set(index, new ModulusOperation().operate(a, b));
 			operators.remove(index);
 			break;
 		}
